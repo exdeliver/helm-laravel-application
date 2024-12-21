@@ -1,0 +1,13 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+ name: {{ include "laravel-app.fullname" . }}
+ namespace: {{ .Values.namespace }}
+spec:
+ selector:
+  matchLabels:
+    {{- include "laravel-app.selectorLabels" . | nindent 6 }}
+ endpoints:
+  - port: metrics
+  {{- end }}

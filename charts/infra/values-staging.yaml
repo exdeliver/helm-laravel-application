@@ -1,0 +1,45 @@
+environment: staging
+namespace: infrastructure-staging
+
+mariadb:
+ enabled: true
+ auth:
+  database: shared_db
+  username: db_user
+ primary:
+  resources:
+   requests:
+    memory: 1Gi
+    cpu: 500m
+   limits:
+    memory: 2Gi
+    cpu: 1000m
+
+redis:
+ enabled: true
+ auth:
+  enabled: true
+ architecture: standalone
+ resources:
+  requests:
+   memory: 512Mi
+   cpu: 250m
+  limits:
+   memory: 1Gi
+   cpu: 500m
+
+nginx-ingress:
+ enabled: true
+ controller:
+  config:
+   client-max-body-size: "50m"
+
+mailserver:
+ enabled: true
+ resources:
+  requests:
+   memory: 256Mi
+   cpu: 250m
+  limits:
+   memory: 512Mi
+   cpu: 500m
