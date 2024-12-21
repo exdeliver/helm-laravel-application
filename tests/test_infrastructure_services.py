@@ -4,7 +4,7 @@ from subprocess import run
 
 @pytest.fixture
 def values():
-    with open('charts/infrastructure-services/values.yaml') as f:
+    with open('charts/infra/values.yaml') as f:
         return yaml.safe_load(f)
 
 def test_mariadb_enabled(values):
@@ -13,7 +13,7 @@ def test_mariadb_enabled(values):
 def test_helm_template():
     result = run([
         'helm', 'template', 'test',
-        './charts/infrastructure-services',
+        './charts/infra',
         '--debug'
     ], capture_output=True)
     assert result.returncode == 0

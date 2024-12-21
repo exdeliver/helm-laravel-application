@@ -3,17 +3,21 @@
 
 set -e
 
-# Install prerequisites
-helm plugin install https://github.com/quintush/helm-unittest
+# Install prerequisites if not already installed
+if ! helm plugin list | grep -q "unittest"; then
+  helm plugin install https://github.com/quintush/helm-unittest
+else
+  echo "unittest plugin is already installed."
+fi
 
 # Run helm lint
 echo "Running helm lint..."
-helm lint charts/infrastructure-services
+helm lint charts/infra
 helm lint charts/laravel-app
 
 # Run unit tests
 echo "Running unit tests..."
-helm unittest charts/infrastructure-services
+helm unittest charts/infra
 helm unittest charts/laravel-app
 
 # Create test cluster
@@ -27,8 +31,8 @@ kubectl wait --for=condition=Ready pods -n cert-manager --all --timeout=300s
 
 # Install charts
 echo "Installing charts..."
-helm install infrastructure-test ./charts/infrastructure-services \
-  -f charts/infrastructure-services/values-staging.yaml \
+helm install infrastructure-test ./charts/infra \
+  -f charts/infra/values-staging.yaml \
   -n infrastructure-staging --create-namespace
 
 # Wait for deployments

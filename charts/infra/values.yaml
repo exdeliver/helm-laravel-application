@@ -1,0 +1,11 @@
+nameOverride: ""
+fullnameOverride: ""
+
+mariadb:
+ auth:
+  username: testing
+  password: testing
+  rootPassword: testing
+redis:
+ auth:
+  password: testing
