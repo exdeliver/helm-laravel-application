@@ -1,4 +1,4 @@
-{{- if .Values.monitoring.enabled }}
+{{- if (default (dict "enabled" true) .Values.monitoring).enabled -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -10,4 +10,4 @@ spec:
     {{- include "laravel-app.selectorLabels" . | nindent 6 }}
  endpoints:
   - port: metrics
-  {{- end }}
+{{- end }}

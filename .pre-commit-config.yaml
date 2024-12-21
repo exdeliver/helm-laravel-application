@@ -8,6 +8,6 @@ repos:
    hooks:
     - id: helm-lint
       name: Helm lint
-      entry: helm lint charts/infrastructure-services
+      entry: helm lint charts/infra
       language: system
       pass_filenames: false

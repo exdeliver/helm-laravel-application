@@ -1,6 +1,11 @@
 nameOverride: ""
 fullnameOverride: ""
 
+mariadb:
+ auth:
+  username: testing
+  password: testing
+
 image:
  repository: nginx
  pullPolicy: IfNotPresent
