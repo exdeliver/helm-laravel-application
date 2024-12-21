@@ -1,0 +1,98 @@
+environment: production
+namespace: infrastructure-production
+
+mariadb:
+ enabled: true
+ auth:
+  database: shared_db
+  username: db_user
+ primary:
+  resources:
+   requests:
+    memory: 2Gi
+    cpu: 1000m
+   limits:
+    memory: 4Gi
+    cpu: 2000m
+ replication:
+  enabled: true
+
+redis:
+ enabled: true
+ auth:
+  enabled: true
+ architecture: replication
+ resources:
+  requests:
+   memory: 1Gi
+   cpu: 500m
+  limits:
+   memory: 2Gi
+   cpu: 1000m
+
+nginx-ingress:
+ enabled: true
+ controller:
+  replicaCount: 2
+  config:
+   client-max-body-size: "50m"
+
+mailserver:
+ enabled: true
+ resources:
+  requests:
+   memory: 512Mi
+   cpu: 500m
+  limits:
+   memory: 1Gi
+   cpu: 1000m
+
+monitoring:
+ enabled: true
+ prometheus:
+  enabled: true
+  retention: 15d
+  resources:
+   requests:
+    memory: 2Gi
+    cpu: 1000m
+  alertmanager:
+   enabled: true
+ grafana:
+  enabled: true
+  adminPassword: "your-secure-password"
+  persistence:
+   enabled: true
+   size: 10Gi
+
+logging:
+ enabled: true
+ elasticsearch:
+  replicas: 3
+  resources:
+   requests:
+    memory: 2Gi
+    cpu: 1000m
+  persistence:
+   size: 100Gi
+ kibana:
+  resources:
+   requests:
+    memory: 1Gi
+    cpu: 500m
+ filebeat:
+  enabled: true
+  config:
+   processors:
+    - add_kubernetes_metadata:
+       in_cluster: true
+
+storage:
+ enabled: true
+ minio:
+  persistence:
+   size: 100Gi
+  resources:
+   requests:
+    memory: 1Gi
+    cpu: 500m

@@ -1,0 +1,13 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+ name: infrastructure-services
+ namespace: {{ .Values.namespace }}
+spec:
+ selector:
+  matchLabels:
+   type: infrastructure
+ endpoints:
+  - port: metrics
+  {{- end }}

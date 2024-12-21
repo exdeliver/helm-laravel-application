@@ -1,0 +1,13 @@
+# .pre-commit-config.yaml
+repos:
+ - repo: https://github.com/helm/chart-testing
+   rev: v3.7.1
+   hooks:
+    - id: ct-lint
+ - repo: local
+   hooks:
+    - id: helm-lint
+      name: Helm lint
+      entry: helm lint charts/infrastructure-services
+      language: system
+      pass_filenames: false

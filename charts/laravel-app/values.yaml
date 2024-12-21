@@ -1,0 +1,31 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+ repository: nginx
+ pullPolicy: IfNotPresent
+ tag: latest
+
+php:
+ version: "8.2"
+ extensions:
+  - pdo_mysql
+  - mbstring
+  - redis
+  - exif
+  - pcntl
+  - bcmath
+  - gd
+
+# Infrastructure service connections
+infrastructure:
+ # These will be different for staging/production
+ database:
+  host: "mariadb.infrastructure-staging"
+  port: 3306
+ redis:
+  host: "redis.infrastructure-staging"
+  port: 6379
+ mail:
+  host: "postfix.infrastructure-staging"
+  port: 25

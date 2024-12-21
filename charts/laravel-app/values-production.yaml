@@ -1,0 +1,38 @@
+environment: production
+namespace: production
+
+mariadb:
+ auth:
+  database: laravel_production
+  username: laravel_production
+ primary:
+  resources:
+   requests:
+    memory: 1Gi
+    cpu: 500m
+   limits:
+    memory: 2Gi
+    cpu: 1000m
+ replication:
+  enabled: true
+
+redis:
+ resources:
+  requests:
+   memory: 512Mi
+   cpu: 250m
+  limits:
+   memory: 1Gi
+   cpu: 500m
+ sentinel:
+  enabled: true
+
+app:
+ replicas: 3
+ resources:
+  requests:
+   memory: 512Mi
+   cpu: 500m
+  limits:
+   memory: 1Gi
+   cpu: 1000m
